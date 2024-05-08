@@ -11,9 +11,4 @@ public record FixedAmountStrategy(Money discount) implements DiscountStrategy {
 
         return discountedPrice.isNegative() ? regularPrice : rawDiscount;
     }
-
-    @Override
-    public Money calculateDiscountedPrice(Money initialPrice) {
-        return initialPrice.subtract(calculateDiscount(initialPrice));
-    }
 }

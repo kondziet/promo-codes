@@ -5,5 +5,11 @@ import pl.kondziet.springbackend.domain.model.Money;
 public interface DiscountStrategy {
 
     Money calculateDiscount(Money regularPrice);
-    Money calculateDiscountedPrice(Money initialPrice);
+    default Money calculateDiscountedPrice(Money initialPrice) {
+        Money discount = calculateDiscount(initialPrice);
+        if (discount.isNegative()) {
+            throw new IllegalArgumentException("Discount cannot be negative");
+        }
+        return initialPrice.subtract(discount);
+    }
 }

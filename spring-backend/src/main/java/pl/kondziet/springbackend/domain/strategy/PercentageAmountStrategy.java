@@ -13,9 +13,4 @@ public record PercentageAmountStrategy(Double percentage) implements DiscountStr
 
         return discountedPrice.isNegative() ? regularPrice : rawDiscount;
     }
-
-    @Override
-    public Money calculateDiscountedPrice(Money initialPrice) {
-        return initialPrice.subtract(calculateDiscount(initialPrice));
-    }
 }
