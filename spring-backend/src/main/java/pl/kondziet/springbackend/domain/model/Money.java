@@ -4,6 +4,7 @@ import jakarta.persistence.Embeddable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Currency;
 
 @Embeddable
 public record Money(BigDecimal amount, String currency) {
@@ -14,6 +15,9 @@ public record Money(BigDecimal amount, String currency) {
         }
         if (amount.scale() != 2) {
             throw new IllegalArgumentException("Amount scale must be exactly 2");
+        }
+        if (!isValidCurrency(currency)) {
+            throw new IllegalArgumentException("Invalid currency code");
         }
     }
 
@@ -50,6 +54,15 @@ public record Money(BigDecimal amount, String currency) {
 
     public static BigDecimal parseToValidAmount(BigDecimal value) {
         return value.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public static boolean isValidCurrency(String currencyCode) {
+        try {
+            Currency.getInstance(currencyCode);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public boolean currencyMatches(Money other) {
