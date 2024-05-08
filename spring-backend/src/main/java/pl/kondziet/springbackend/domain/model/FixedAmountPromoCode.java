@@ -21,7 +21,6 @@ public class FixedAmountPromoCode extends PromoCode {
     @Embedded
     @Column(nullable = false)
     private Money discount;
-
     @Override
     public DiscountStrategy getDiscountStrategy() {
         return new FixedAmountStrategy(discount);

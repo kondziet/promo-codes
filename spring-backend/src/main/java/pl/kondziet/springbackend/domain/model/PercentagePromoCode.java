@@ -22,7 +22,6 @@ public class PercentagePromoCode extends PromoCode {
 
     @Column(nullable = false)
     private Double percentage;
-
     @Override
     public DiscountStrategy getDiscountStrategy() {
         return new PercentageAmountStrategy(percentage);
