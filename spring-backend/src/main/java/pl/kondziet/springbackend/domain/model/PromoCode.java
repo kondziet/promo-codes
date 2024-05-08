@@ -12,14 +12,16 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Entity
 @Table(name = "PROMO_CODES")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "PC_TYPE")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PromoCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String code;
+    @Column(nullable = false)
     private LocalDateTime expiry;
+    @Column(nullable = false)
     private Long maxAllowedUsages;
 }

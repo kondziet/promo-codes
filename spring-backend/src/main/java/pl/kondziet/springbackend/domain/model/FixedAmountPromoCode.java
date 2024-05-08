@@ -1,8 +1,6 @@
 package pl.kondziet.springbackend.domain.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,9 +9,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@DiscriminatorValue("FIXED_AMOUNT")
+@Table(name = "FIXED_AMOUNT_PROMO_CODES")
 public class FixedAmountPromoCode extends PromoCode {
 
     @Embedded
+    @Column(nullable = false)
     private Money discount;
 }
