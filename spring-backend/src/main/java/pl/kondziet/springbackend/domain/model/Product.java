@@ -16,4 +16,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
     private String description;
+    @Embedded
+    @Column(nullable = false)
+    private Money price;
 }
