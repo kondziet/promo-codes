@@ -2,7 +2,9 @@ package pl.kondziet.springbackend.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
 
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @SuperBuilder
 @Entity
 @Table(name = "PROMO_CODES")
