@@ -6,6 +6,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
+import pl.kondziet.springbackend.domain.strategy.PercentageAmountStrategy;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +18,9 @@ public class PercentagePromoCode extends PromoCode {
 
     @Column(nullable = false)
     private Double percentage;
+
+    @Override
+    public DiscountStrategy getDiscountStrategy() {
+        return new PercentageAmountStrategy(this);
+    }
 }
