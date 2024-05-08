@@ -1,5 +1,6 @@
 package pl.kondziet.springbackend.infrastructure.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    ResponseEntity<?> createProduct(@RequestBody ProductRequest productRequest) {
+    ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         productService.registerProduct(productRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
@@ -28,7 +29,7 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    ResponseEntity<?> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable Long productId) {
+    ResponseEntity<?> updateProduct(@Valid @RequestBody ProductRequest productRequest, @PathVariable Long productId) {
         productService.modifyProduct(productRequest, productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .build();
