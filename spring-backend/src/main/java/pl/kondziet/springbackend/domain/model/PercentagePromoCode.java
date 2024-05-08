@@ -21,6 +21,6 @@ public class PercentagePromoCode extends PromoCode {
 
     @Override
     public DiscountStrategy getDiscountStrategy() {
-        return new PercentageAmountStrategy(this);
+        return new PercentageAmountStrategy(percentage);
     }
 }

@@ -20,6 +20,6 @@ public class FixedAmountPromoCode extends PromoCode {
 
     @Override
     public DiscountStrategy getDiscountStrategy() {
-        return new FixedAmountStrategy(this);
+        return new FixedAmountStrategy(discount);
     }
 }
