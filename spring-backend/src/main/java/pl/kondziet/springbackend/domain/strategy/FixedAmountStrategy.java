@@ -7,6 +7,10 @@ public record FixedAmountStrategy(Money discount) implements DiscountStrategy {
 
     @Override
     public Money calculatePrice(Product product) {
-        return null;
+        Money regularPrice = product.getPrice();
+
+        Money discountedPrice = regularPrice.subtract(discount);
+
+        return discountedPrice.isNegative() ? Money.zero(regularPrice.currency()) : discountedPrice;
     }
 }
