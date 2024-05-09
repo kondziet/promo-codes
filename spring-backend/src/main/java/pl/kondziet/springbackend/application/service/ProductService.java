@@ -11,6 +11,7 @@ import pl.kondziet.springbackend.infrastructure.persistence.repository.ProductRe
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Service
@@ -44,7 +45,8 @@ public class ProductService {
     }
 
     public void modifyProduct(ProductRequest productRequest, Long productId) {
-        var persistedProduct = productRepository.findById(productId).orElseThrow();
+        var persistedProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Product doesn't exist"));
 
         persistedProduct.setName(productRequest.name());
         persistedProduct.setDescription(productRequest.description());
