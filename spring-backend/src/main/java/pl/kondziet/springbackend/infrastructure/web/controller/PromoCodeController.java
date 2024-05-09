@@ -24,15 +24,21 @@ public class PromoCodeController {
                 .body(promoCodeService.retrieveAllPromoCodes());
     }
 
+    @GetMapping("/{code}")
+    public ResponseEntity<?> getPromoCodeDetails(@PathVariable String code) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(promoCodeService.retrievePromoCodeDetails(code));
+    }
+
     @PostMapping("/fixed-amount")
-    public ResponseEntity<String> createFixedAmountPromoCode(@RequestBody FixedAmountPromoCodeRequest promoCodeRequest) {
+    public ResponseEntity<?> createFixedAmountPromoCode(@RequestBody FixedAmountPromoCodeRequest promoCodeRequest) {
         promoCodeService.registerPromoCode(promoCodeRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
     }
 
     @PostMapping("/percentage")
-    public ResponseEntity<String> createPercentagePromoCode(@RequestBody PercentagePromoCodeRequest promoCodeRequest) {
+    public ResponseEntity<?> createPercentagePromoCode(@RequestBody PercentagePromoCodeRequest promoCodeRequest) {
         promoCodeService.registerPromoCode(promoCodeRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
