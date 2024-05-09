@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kondziet.springbackend.application.dto.ProductRequest;
+import pl.kondziet.springbackend.application.service.DiscountService;
 import pl.kondziet.springbackend.application.service.ProductService;
 
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ import pl.kondziet.springbackend.application.service.ProductService;
 public class ProductController {
 
     private final ProductService productService;
+    private final DiscountService discountService;
 
     @PostMapping
     ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest productRequest) {
@@ -33,5 +35,10 @@ public class ProductController {
         productService.modifyProduct(productRequest, productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .build();
+    }
+
+    @GetMapping("/{productId}")
+    ResponseEntity<?> getProductPrice(@PathVariable Long productId, @RequestParam String promocode) {
+        return ResponseEntity.ok(discountService.calculateDiscountDetails(productId, promocode));
     }
 }
