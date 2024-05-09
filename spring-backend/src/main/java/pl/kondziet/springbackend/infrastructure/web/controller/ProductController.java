@@ -39,6 +39,6 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     ResponseEntity<?> getProductPrice(@PathVariable Long productId, @RequestParam String promocode) {
-        return ResponseEntity.ok(discountService.calculateDiscountDetails(productId, promocode));
+        return ResponseEntity.ok(discountService.calculateDiscountDetails(productId, promocode).discountedPrice());
     }
 }
