@@ -16,7 +16,7 @@ public class DiscountCalculationHandler {
     @ExceptionHandler(DiscountCalculationException.class)
     public Map<String, Object> handleDiscountCalculation(DiscountCalculationException exception) {
         Map<String, Object> warningResponse = new HashMap<>();
-        warningResponse.put("regularPrice", exception.getRegularPrice());
+        warningResponse.put("price", exception.getRegularPrice());
         warningResponse.put("warning", exception.getWarning());
         return warningResponse;
     }
