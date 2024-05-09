@@ -37,5 +37,7 @@ public class Purchase {
     @Embedded
     private Money appliedDiscount;
     @ManyToOne
+    private PromoCode promoCode;
+    @ManyToOne
     private Product product;
 }
