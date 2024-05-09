@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import pl.kondziet.springbackend.application.dto.PromoCodeResponse;
 import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public abstract class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
     @Column(nullable = false)
     private LocalDateTime expiry;
@@ -31,4 +32,5 @@ public abstract class PromoCode {
     private Long maxAllowedUsages;
 
     public abstract DiscountStrategy getDiscountStrategy();
+    public abstract PromoCodeResponse toResponse();
 }

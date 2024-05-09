@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import pl.kondziet.springbackend.application.dto.FixedAmountPromoCodeResponse;
+import pl.kondziet.springbackend.application.dto.MoneyResponse;
+import pl.kondziet.springbackend.application.dto.PromoCodeResponse;
 import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
 import pl.kondziet.springbackend.domain.strategy.FixedAmountStrategy;
 
@@ -24,5 +27,18 @@ public class FixedAmountPromoCode extends PromoCode {
     @Override
     public DiscountStrategy getDiscountStrategy() {
         return new FixedAmountStrategy(discount);
+    }
+
+    @Override
+    public PromoCodeResponse toResponse() {
+        return FixedAmountPromoCodeResponse.builder()
+                .code(super.getCode())
+                .expiry(super.getExpiry())
+                .maxAllowedUsages(super.getMaxAllowedUsages())
+                .discount(new MoneyResponse(
+                        discount.amount().doubleValue(),
+                        discount.currency()
+                ))
+                .build();
     }
 }

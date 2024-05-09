@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import pl.kondziet.springbackend.application.dto.PercentagePromoCodeResponse;
+import pl.kondziet.springbackend.application.dto.PromoCodeResponse;
 import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
 import pl.kondziet.springbackend.domain.strategy.PercentageAmountStrategy;
 
@@ -25,5 +27,15 @@ public class PercentagePromoCode extends PromoCode {
     @Override
     public DiscountStrategy getDiscountStrategy() {
         return new PercentageAmountStrategy(percentage);
+    }
+
+    @Override
+    public PromoCodeResponse toResponse() {
+        return PercentagePromoCodeResponse.builder()
+                .code(super.getCode())
+                .expiry(super.getExpiry())
+                .maxAllowedUsages(super.getMaxAllowedUsages())
+                .percentage(percentage)
+                .build();
     }
 }
