@@ -12,6 +12,7 @@ import pl.kondziet.springbackend.domain.model.PromoCode;
 import pl.kondziet.springbackend.domain.strategy.DiscountStrategy;
 import pl.kondziet.springbackend.infrastructure.persistence.repository.ProductRepository;
 import pl.kondziet.springbackend.infrastructure.persistence.repository.PromoCodeRepository;
+import pl.kondziet.springbackend.infrastructure.persistence.repository.PurchaseRepository;
 
 import java.util.NoSuchElementException;
 
@@ -21,6 +22,7 @@ public class DiscountService {
 
     private final ProductRepository productRepository;
     private final PromoCodeRepository promoCodeRepository;
+    private final PurchaseRepository purchaseRepository;
 
     @Transactional
     public DiscountDetails calculateDiscountDetails(Long productId, String code) {
@@ -37,7 +39,7 @@ public class DiscountService {
             throw new DiscountCalculationException(product.getPrice().toResponse(), "PromoCode currency doesn't match the product currency");
         }
 
-        Long numberOfUsages = promoCodeRepository.findNumberOfUsages(product.getId());
+        Long numberOfUsages = purchaseRepository.countByPromoCode_Id(promoCode.getId());
         if (numberOfUsages >= promoCode.getMaxAllowedUsages()) {
             throw new DiscountCalculationException(product.getPrice().toResponse(), "PromoCode usage limit has been exceeded");
         }
