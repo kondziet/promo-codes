@@ -31,6 +31,10 @@ public abstract class PromoCode {
     @Column(nullable = false)
     private Long maxAllowedUsages;
 
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expiry);
+    }
+
     public abstract DiscountStrategy getDiscountStrategy();
     public abstract PromoCodeResponse toResponse();
 }

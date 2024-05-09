@@ -1,6 +1,7 @@
 package pl.kondziet.springbackend.domain.model;
 
 import jakarta.persistence.Embeddable;
+import pl.kondziet.springbackend.application.dto.MoneyResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -67,5 +68,9 @@ public record Money(BigDecimal amount, String currency) {
 
     public boolean currencyMatches(Money other) {
         return currency.equals(other.currency);
+    }
+
+    public MoneyResponse toResponse() {
+        return new MoneyResponse(amount.doubleValue(), currency);
     }
 }
