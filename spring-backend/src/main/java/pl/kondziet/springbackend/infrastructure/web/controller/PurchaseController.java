@@ -14,7 +14,7 @@ public class PurchaseController {
     private final PurchaseService purchaseService;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<?> createPurchase(@PathVariable Long productId, @RequestParam String promocode) {
+    public ResponseEntity<?> createPurchase(@PathVariable Long productId, @RequestParam(required = false) String promocode) {
         purchaseService.registerPurchase(productId, promocode);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
