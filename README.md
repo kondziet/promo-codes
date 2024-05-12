@@ -1,5 +1,23 @@
 # promo-codes
 
+### How to install
+**Maven:** Verify that Maven is installed on your machine
+```properties
+mvn -v
+```  
+**Terminal:** Navigate the Project Directory:
+```properties
+cd spring-backend
+```  
+**Maven:** Build the Application:
+```properties
+mvn clean install
+```  
+**Java:** Run the Application
+```properties
+java -jar target/spring-backend-0.0.1-SNAPSHOT.jar
+```
+
 ### Exemplary Data
 
 #### Promo Codes
