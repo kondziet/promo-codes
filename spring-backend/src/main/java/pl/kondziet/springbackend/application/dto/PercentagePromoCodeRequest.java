@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record PercentagePromoCodeRequest(
-        @NotBlank(message = "Name is required")
+        @NotBlank(message = "Code is required")
         String code,
         @NotNull(message = "Expiry is required")
         LocalDateTime expiry,
