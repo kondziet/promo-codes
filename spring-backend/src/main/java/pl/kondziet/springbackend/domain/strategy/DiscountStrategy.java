@@ -11,6 +11,11 @@ public interface DiscountStrategy {
         if (discount.isNegative()) {
             throw new IllegalArgumentException("Discount cannot be negative");
         }
-        return initialPrice.subtract(discount);
+        Money discountedPrice = initialPrice.subtract(discount);
+        if (discountedPrice.isNegative()) {
+            throw new IllegalArgumentException("Discount cannot be higher than regular price");
+        }
+
+        return discountedPrice;
     }
 }
