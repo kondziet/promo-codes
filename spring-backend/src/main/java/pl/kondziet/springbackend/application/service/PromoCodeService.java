@@ -24,8 +24,13 @@ public class PromoCodeService {
         return promoCodeRepository.findAll().stream().map(PromoCode::toResponse).toList();
     }
 
+    @Transactional
     public void registerPromoCode(PromoCodeRequest promoCodeRequest) {
         PromoCode promoCodeToPersist = promoCodeRequest.toDomainObject();
+
+        if (promoCodeRepository.existsByCode(promoCodeToPersist.getCode())) {
+            throw new IllegalArgumentException("PromoCode with given code already exists");
+        }
 
         promoCodeRepository.save(promoCodeToPersist);
     }

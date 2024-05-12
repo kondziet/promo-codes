@@ -19,14 +19,14 @@ public sealed interface PromoCodeRequest permits FixedAmountPromoCodeRequest, Pe
     default PromoCode toDomainObject() {
         return switch (this) {
             case FixedAmountPromoCodeRequest request -> FixedAmountPromoCode.builder()
-                    .code(request.code())
+                    .code(request.code().trim())
                     .expiry(request.expiry())
                     .maxAllowedUsages(request.maxAllowedUsages())
                     .discount(request.discount().toDomainObject())
                     .build();
 
             case PercentagePromoCodeRequest request -> PercentagePromoCode.builder()
-                    .code(request.code())
+                    .code(request.code().trim())
                     .expiry(request.expiry())
                     .maxAllowedUsages(request.maxAllowedUsages())
                     .percentage(request.percentage())
