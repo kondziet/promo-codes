@@ -11,23 +11,25 @@ import java.time.LocalDateTime;
 public sealed interface PromoCodeRequest permits FixedAmountPromoCodeRequest, PercentagePromoCodeRequest {
 
     String code();
+
     LocalDateTime expiry();
+
     Long maxAllowedUsages();
+
     default PromoCode toDomainObject() {
         return switch (this) {
-            case FixedAmountPromoCodeRequest p -> FixedAmountPromoCode.builder()
-                    .code(p.code())
-                    .expiry(p.expiry())
-                    .maxAllowedUsages(p.maxAllowedUsages())
-                    .discount(new Money(
-                            Money.parseToValidAmount(BigDecimal.valueOf(p.discount().amount())),
-                            p.discount().currency()))
+            case FixedAmountPromoCodeRequest request -> FixedAmountPromoCode.builder()
+                    .code(request.code())
+                    .expiry(request.expiry())
+                    .maxAllowedUsages(request.maxAllowedUsages())
+                    .discount(request.discount().toDomainObject())
                     .build();
-            case PercentagePromoCodeRequest p -> PercentagePromoCode.builder()
-                    .code(p.code())
-                    .expiry(p.expiry())
-                    .maxAllowedUsages(p.maxAllowedUsages())
-                    .percentage(p.percentage())
+
+            case PercentagePromoCodeRequest request -> PercentagePromoCode.builder()
+                    .code(request.code())
+                    .expiry(request.expiry())
+                    .maxAllowedUsages(request.maxAllowedUsages())
+                    .percentage(request.percentage())
                     .build();
         };
     }
