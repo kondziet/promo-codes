@@ -31,14 +31,14 @@ public class PromoCodeController {
     }
 
     @PostMapping("/fixed-amount")
-    public ResponseEntity<?> createFixedAmountPromoCode(@RequestBody FixedAmountPromoCodeRequest promoCodeRequest) {
+    public ResponseEntity<?> createFixedAmountPromoCode(@Valid @RequestBody FixedAmountPromoCodeRequest promoCodeRequest) {
         promoCodeService.registerPromoCode(promoCodeRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
     }
 
     @PostMapping("/percentage")
-    public ResponseEntity<?> createPercentagePromoCode(@RequestBody PercentagePromoCodeRequest promoCodeRequest) {
+    public ResponseEntity<?> createPercentagePromoCode(@Valid @RequestBody PercentagePromoCodeRequest promoCodeRequest) {
         promoCodeService.registerPromoCode(promoCodeRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
