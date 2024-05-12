@@ -35,10 +35,7 @@ public class FixedAmountPromoCode extends PromoCode {
                 .code(super.getCode())
                 .expiry(super.getExpiry())
                 .maxAllowedUsages(super.getMaxAllowedUsages())
-                .discount(new MoneyResponse(
-                        discount.amount().doubleValue(),
-                        discount.currency()
-                ))
+                .discount(discount.toResponse())
                 .build();
     }
 }

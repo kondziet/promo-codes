@@ -23,9 +23,7 @@ public class ProductService {
         var productToPersist = Product.builder()
                 .name(productRequest.name())
                 .description(productRequest.description())
-                .price(new Money(
-                        Money.parseToValidAmount(BigDecimal.valueOf(productRequest.price().amount())),
-                        productRequest.price().currency()))
+                .price(productRequest.price().toDomainObject())
                 .build();
 
         productRepository.save(productToPersist);
@@ -36,10 +34,7 @@ public class ProductService {
                 .map(product -> new ProductResponse(
                         product.getName(),
                         product.getDescription(),
-                        new MoneyResponse(
-                                product.getPrice().amount().doubleValue(),
-                                product.getPrice().currency()
-                        )
+                        product.getPrice().toResponse()
                 ))
                 .toList();
     }
@@ -50,9 +45,7 @@ public class ProductService {
 
         persistedProduct.setName(productRequest.name());
         persistedProduct.setDescription(productRequest.description());
-        persistedProduct.setPrice(new Money(
-                Money.parseToValidAmount(BigDecimal.valueOf(productRequest.price().amount())),
-                productRequest.price().currency()));
+        persistedProduct.setPrice(productRequest.price().toDomainObject());
 
         productRepository.saveAndFlush(persistedProduct);
     }
