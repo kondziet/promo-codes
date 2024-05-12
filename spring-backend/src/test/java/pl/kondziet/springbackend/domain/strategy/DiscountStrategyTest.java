@@ -21,7 +21,7 @@ class DiscountStrategyTest {
         };
 
         //expect:
-        assertThrows(IllegalArgumentException.class, () -> strategy.calculateDiscountedPrice(regularPrice));
+        assertThrows(IllegalStateException.class, () -> strategy.calculateDiscountedPrice(regularPrice));
     }
 
 }
