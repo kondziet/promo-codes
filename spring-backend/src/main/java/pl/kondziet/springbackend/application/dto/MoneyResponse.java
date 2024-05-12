@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 public record MoneyResponse(Double amount, String currency) {
 
     public Money toDomainObject() {
-        return new Money(Money.parseToValidAmount(BigDecimal.valueOf(amount)), currency);
+        return new Money(amount, currency);
     }
 }

@@ -8,53 +8,52 @@ import java.math.RoundingMode;
 import java.util.Currency;
 
 @Embeddable
-public record Money(BigDecimal amount, String currency) {
+public record Money(Double amount, String currency) {
 
-    public Money {
+    public Money(Double amount, String currency) {
         if (amount == null || currency == null) {
             throw new IllegalArgumentException("Amount and currency must not be null");
         }
-        if (amount.scale() != 2) {
-            throw new IllegalArgumentException("Amount scale must be exactly 2");
-        }
+        this.amount = Money.parseToValidScale(amount);
         if (!isValidCurrency(currency)) {
             throw new IllegalArgumentException("Invalid currency code");
         }
+        this.currency = currency;
     }
 
     public static Money zero(String currency) {
-        return new Money(parseToValidAmount(BigDecimal.ZERO), currency);
+        return new Money(parseToValidScale(0d), currency);
     }
 
-    public Money multiply(BigDecimal factor) {
-        BigDecimal rawResult = amount.multiply(factor);
-        BigDecimal roundedResult = Money.parseToValidAmount(rawResult);
-        return new Money(roundedResult, currency);
+    public Money multiply(Double factor) {
+        Double rawResult = amount * factor;
+        Double parsedResult = Money.parseToValidScale(rawResult);
+        return new Money(parsedResult, currency);
     }
 
     public Money subtract(Money other) {
         if (!this.currencyMatches(other)) {
             throw new IllegalArgumentException("Currencies must match for subtraction");
         }
-        BigDecimal rawResult = amount.subtract(other.amount);
-        BigDecimal roundedResult = Money.parseToValidAmount(rawResult);
-        return new Money(roundedResult, currency);
+        Double rawResult = amount - other.amount;
+        Double parsedResult = Money.parseToValidScale(rawResult);
+        return new Money(parsedResult, currency);
     }
 
     public boolean isZero() {
-        return amount.compareTo(BigDecimal.ZERO) == 0;
+        return amount == 0;
     }
 
     public boolean isNegative() {
-        return amount.compareTo(BigDecimal.ZERO) < 0;
+        return amount < 0;
     }
 
     public boolean isPositive() {
-        return amount.compareTo(BigDecimal.ZERO) > 0;
+        return amount > 0;
     }
 
-    public static BigDecimal parseToValidAmount(BigDecimal value) {
-        return value.setScale(2, RoundingMode.HALF_UP);
+    public static Double parseToValidScale(Double value) {
+        return BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public static boolean isValidCurrency(String currencyCode) {
@@ -71,6 +70,6 @@ public record Money(BigDecimal amount, String currency) {
     }
 
     public MoneyResponse toResponse() {
-        return new MoneyResponse(amount.doubleValue(), currency);
+        return new MoneyResponse(amount, currency);
     }
 }

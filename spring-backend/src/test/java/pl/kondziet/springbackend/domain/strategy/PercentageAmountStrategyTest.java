@@ -12,46 +12,46 @@ class PercentageAmountStrategyTest {
     @Test
     void shouldCalculateNotExceedingDiscountCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
+        var regularPrice = new Money(65.25, "USD");
         var strategy = new PercentageAmountStrategy(35.33);
 
         //when:
         var discount = strategy.calculateDiscount(regularPrice);
 
         //then:
-        assertEquals(new Money(BigDecimal.valueOf(23.05), "USD"), discount);
+        assertEquals(new Money(23.05, "USD"), discount);
     }
 
     @Test
     void shouldCalculateExceedingDiscountCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
+        var regularPrice = new Money(65.25, "USD");
         var strategy = new PercentageAmountStrategy(121.22);
 
         //when:
         var discount = strategy.calculateDiscount(regularPrice);
 
         //then:
-        assertEquals(new Money(BigDecimal.valueOf(65.25), "USD"), discount);
+        assertEquals(new Money(65.25, "USD"), discount);
     }
 
     @Test
     void shouldCalculateNotExceedingDiscountedPriceCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
+        var regularPrice = new Money(65.25, "USD");
         var strategy = new PercentageAmountStrategy(35.33);
 
         //when:
         var discountedPrice = strategy.calculateDiscountedPrice(regularPrice);
 
         //then:
-        assertEquals(new Money(new BigDecimal("42.20"), "USD"), discountedPrice);
+        assertEquals(new Money(42.2, "USD"), discountedPrice);
     }
 
     @Test
     void shouldCalculateExceedingDiscountedPriceCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
+        var regularPrice = new Money(65.25, "USD");
         var strategy = new PercentageAmountStrategy(121.22);
 
         //when:

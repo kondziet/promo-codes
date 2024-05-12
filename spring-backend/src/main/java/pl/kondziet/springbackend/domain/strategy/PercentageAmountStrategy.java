@@ -8,7 +8,7 @@ public record PercentageAmountStrategy(Double percentage) implements DiscountStr
 
     @Override
     public Money calculateDiscount(Money regularPrice) {
-        Money rawDiscount = regularPrice.multiply(BigDecimal.valueOf(percentage/100));
+        Money rawDiscount = regularPrice.multiply(percentage/100);
         Money discountedPrice = regularPrice.subtract(rawDiscount);
 
         return discountedPrice.isNegative() ? regularPrice : rawDiscount;

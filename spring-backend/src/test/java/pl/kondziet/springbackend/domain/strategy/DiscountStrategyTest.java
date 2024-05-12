@@ -12,11 +12,11 @@ class DiscountStrategyTest {
     @Test
     void negativeDiscountShouldThrowException() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(25.25), "USD");
+        var regularPrice = new Money(25.25, "USD");
         var strategy = new DiscountStrategy() {
             @Override
             public Money calculateDiscount(Money regularPrice) {
-                return regularPrice.subtract(new Money(BigDecimal.valueOf(120.25), "USD"));
+                return regularPrice.subtract(new Money(120.25, "USD"));
             }
         };
 

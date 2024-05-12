@@ -12,47 +12,47 @@ class FixedAmountStrategyTest {
     @Test
     void shouldCalculateNotExceedingDiscountCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
-        var strategy = new FixedAmountStrategy(new Money(BigDecimal.valueOf(37.35), "USD"));
+        var regularPrice = new Money(65.25, "USD");
+        var strategy = new FixedAmountStrategy(new Money(37.35, "USD"));
 
         //when:
         var discount = strategy.calculateDiscount(regularPrice);
 
         //then:
-        assertEquals(new Money(BigDecimal.valueOf(37.35), "USD"), discount);
+        assertEquals(new Money(37.35, "USD"), discount);
     }
 
     @Test
     void shouldCalculateExceedingDiscountCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
-        var strategy = new FixedAmountStrategy(new Money(BigDecimal.valueOf(82.35), "USD"));
+        var regularPrice = new Money(65.25, "USD");
+        var strategy = new FixedAmountStrategy(new Money(82.35, "USD"));
 
         //when:
         var discount = strategy.calculateDiscount(regularPrice);
 
         //then:
-        assertEquals(new Money(BigDecimal.valueOf(65.25), "USD"), discount);
+        assertEquals(new Money(65.25, "USD"), discount);
     }
 
     @Test
     void shouldCalculateNotExceedingDiscountedPriceCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
-        var strategy = new FixedAmountStrategy(new Money(BigDecimal.valueOf(37.35), "USD"));
+        var regularPrice = new Money(65.25, "USD");
+        var strategy = new FixedAmountStrategy(new Money(37.35, "USD"));
 
         //when:
         var discountedPrice = strategy.calculateDiscountedPrice(regularPrice);
 
         //then:
-        assertEquals(new Money(new BigDecimal("27.90"), "USD"), discountedPrice);
+        assertEquals(new Money(27.9, "USD"), discountedPrice);
     }
 
     @Test
     void shouldCalculateExceedingDiscountedPriceCorrectly() {
         //given:
-        var regularPrice = new Money(BigDecimal.valueOf(65.25), "USD");
-        var strategy = new FixedAmountStrategy(new Money(BigDecimal.valueOf(99.35), "USD"));
+        var regularPrice = new Money(65.25, "USD");
+        var strategy = new FixedAmountStrategy(new Money(99.35, "USD"));
 
         //when:
         var discountedPrice = strategy.calculateDiscountedPrice(regularPrice);
