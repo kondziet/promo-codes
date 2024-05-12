@@ -19,7 +19,7 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     FROM Purchase p
     GROUP BY p.regularPrice.currency
     """)
-    List<SalesReport> countReport();
+    List<SalesReport> findAllSalesReports();
 
     Long countByPromoCode_Id(Long promocodeId);
 }

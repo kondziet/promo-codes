@@ -14,6 +14,6 @@ public class SalesReportService {
     private final PurchaseRepository purchaseRepository;
 
     public List<SalesReport> generateSalesReport() {
-        return purchaseRepository.countReport();
+        return purchaseRepository.findAllSalesReports();
     }
 }
