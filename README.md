@@ -122,13 +122,13 @@ The database has been automatically populated with the following exemplary data:
 #### Get the discounted price
 
 - **URL:** `GET localhost:8080/api/product/{productId}?promocode={code}`
-- **1. Sample Query:** `GET localhost:8080/api/product/2?promocode=20EUR`
-- **2. Sample Query:** `GET localhost:8080/api/product/1`
+- **Sample Query:** `GET localhost:8080/api/product/2?promocode=20EUR`
 
 #### Simulate purchase
 
 - **URL:** `POST localhost:8080/api/purchase/{productId}?promocode={code}`
-- **Sample Query:** `POST localhost:8080/api/purchase/3?promocode=9PERCENT`
+- **1. Sample Query:** `POST localhost:8080/api/purchase/3?promocode=9PERCENT`
+- **2. Sample Query:** `POST localhost:8080/api/purchase/3`
 
 #### Sales report
 
